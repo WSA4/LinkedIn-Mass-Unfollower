@@ -30,7 +30,7 @@ So instead of just seeing more **spammy posts** from self-proclaimed "thought le
 **Instead of reloading it manually every time, follow these steps to install it permanently:**  
 
 ### 🔹 **Install the Extension Manually**  
-1. **Download the ZIP file** from [GitHub Releases]().  
+1. **Download the ZIP file** from [GitHub Releases](https://github.com/llewellynvz/LinkedIn-Mass-Unfollower/blob/Psynalytics/linkedin-mass-unfollower.zip).  
 2. **Extract the ZIP file** to a folder on your computer.  
 3. **Open Firefox Developer Mode:**  
    - Open **Firefox**  
