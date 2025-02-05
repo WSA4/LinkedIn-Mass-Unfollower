@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Mass Unfollower</title>
+    <style>
+        /* General Reset */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 500px
+			height: 1000px;
+        }
+
+        /* Popup Container */
+        .popup-container {
+            width: 98%;
+            max-width: 500px;
+			background: white;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        /* Header Section */
+        .popup-header {
+            background: #008da1;
+            color: white;
+            padding: 16px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Body Section */
+        .popup-body {
+            background: #f9f9f9;
+            color: #555;
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Footer Section */
+        .popup-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Buttons */
+        .popup-button {
+            background: #008da1;
+            color: white;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            flex: 1;
+            margin: 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .popup-button:hover {
+            background: #b1dd0c;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            font-size: 8px;
+            color: #666;
+            text-align: center;
+            padding: 10px 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+		
+		.popup-body h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #008da1;
+            margin-bottom: 10px;
+        }
+		
+		.popup-body ul, .popup-body ol, .popup-body li {
+            padding-left: 20px;
+            color: #555;
+        }
+
+    </style>
+
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="popup.js" defer></script>
+</head>
+<body>
+    <div id="overlay" class="popup-container">
+        <div class="popup-header">LinkedIn Mass Unfollower</div>
+        <div class="popup-body">
+            <h3>What it Does</h3>
+            <p>This tool will automatically unfollow all your LinkedIn connections in either the 'Following' or 'Followers' sections.</p>
+
+            <h3>How it Works</h3>
+            <ol>
+                <li>We will redirect you to the appropriate LinkedIn page.</li>
+                <li>It will unfollow users one by one (this cannot be changed due to how LinkedIn works).</li>
+				<li>It first checks if there are any people you follow, if it doesnt find any on the page, it will scroll down till it finds ones that you are following.</li>
+                <li>If there are no more visible users, it will scroll down to load more. The default wait time between sections is 3.5 seconds to ensure the page loads properly</li>
+                <li>If no additional users are found, it will refresh the page and check one more time.</li>
+                <li>After completing one section, you'll have the option to continue with the other section.</li>
+            </ol>
+
+            <h3>Important Notes</h3>
+            <ul>
+                <li>After processing the 'Following' section, at least 9 users will remain to avoid LinkedIn's bot detection.</li>
+                <li><strong>Keep the page and browser open until the process completes.</strong></li>
+                <li>Average completion time: ~1 user per second.</li>
+            </ul>
+        </div>
+			<div class="popup-footer">
+				<button id="unfollowFollowing" class="popup-button">Start Unfollowing</button>
+				<button id="unfollowFollowers" class="popup-button">Additionally Unfollow Followers</button>
+			</div>
+
+        <div class="disclaimer">
+            <em>By using this extension, you agree that you do so at your own risk. The developer is not responsible for any damages or consequences resulting from its use..</em>
+        </div>
+    </div>
+
+<script>
+        // Function to start unfollowing process
+			document.addEventListener("DOMContentLoaded", function () {
+			document.getElementById("unfollowFollowing").addEventListener("click", function () {
+            browser.runtime.sendMessage({ action: "startUnfollowing", section: "following" });
+        });
+
+			document.getElementById("unfollowFollowers").addEventListener("click", function () {
+            browser.runtime.sendMessage({ action: "startUnfollowing", section: "followers" });
+        });
+    });
+
+        // Dynamically adjust popup size and position
+        window.onload = () => {
+            const overlay = document.getElementById("overlay");
+            const windowHeight = window.innerHeight;
+            const popupHeight = Math.min(windowHeight * 1, 1000); // Max height: 80% of viewport or 400px
+            const popupWidth = Math.min(window.innerWidth * 1, 500); // Max width: 80% of viewport or 400px
+
+            // Set the calculated dimensions
+            overlay.style.width = `${popupWidth}px`;
+            overlay.style.height = `${popupHeight}px`;
+
+            // Center the popup vertically and horizontally
+            overlay.style.position = "absolute";
+            overlay.style.top = `${(windowHeight - popupHeight) / 2}px`;
+            overlay.style.left = `${(window.innerWidth - popupWidth) / 2}px`;
+        };
+    </script>
+
+</body>
+</html>
