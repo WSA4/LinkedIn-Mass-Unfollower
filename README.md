@@ -70,7 +70,7 @@ So instead of just seeing more **spammy posts** from self-proclaimed "thought le
 This project was created by **Llewellyn E. van Zyl** out of frustration with LinkedIn’s terrible feed algorithm.  
 
 - 🌍 **Website:** [www.psynalytics.com](https://www.psynalytics.com)  
-- 🔗 **GitHub:** [@YOUR-USERNAME](https://github.com/llewellynvz)  
+- 🔗 **GitHub:** [@llewellynvz](https://github.com/llewellynvz)  
 
 🔥 If you’d like to **contribute**, feel free to fork this repo, submit a pull request, or report bugs!  
 
