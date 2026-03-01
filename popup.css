@@ -1,0 +1,197 @@
+/* General Glassmorphism Reset */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 450px;
+    height: auto;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Container */
+.glass-container {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    display: flex;
+    flex-direction: column;
+}
+
+.glass-header {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.glass-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glass-body {
+    padding: 20px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.glass-body h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+    margin-top: 16px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 4px;
+}
+
+.glass-body h3:first-child {
+    margin-top: 0;
+}
+
+.glass-body ul, .glass-body ol {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.glass-body li {
+    margin-bottom: 6px;
+}
+
+  /* Footer Section */
+.glass-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Glass Buttons */
+.glass-btn {
+    flex: 1;
+    padding: 12px 14px;
+    margin: 0 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.glass-btn:first-child {
+    margin-left: 0;
+}
+
+.glass-btn:last-child {
+    margin-right: 0;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.glass-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.glass-btn.primary {
+    background: rgba(0, 141, 161, 0.7);
+    border-color: rgba(0, 141, 161, 1);
+}
+
+.glass-btn.primary:hover {
+    background: rgba(0, 141, 161, 0.9);
+}
+
+.glass-disclaimer {
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Dynamic overlay popup styles (used in popup.js) */
+.glass-overlay {
+    position: fixed; 
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.6); z-index: 9999;
+    backdrop-filter: blur(4px);
+    display: flex; justify-content: center; align-items: center;
+}
+
+.glass-popup-box {
+    width: 320px; 
+    background: rgba(255, 255, 255, 0.15); 
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0px 8px 32px rgba(0,0,0,0.4);
+    backdrop-filter: blur(16px);
+}
+
+.glass-popup-header {
+    background: rgba(0, 141, 161, 0.8); 
+    color: white; padding: 15px;
+    font-size: 16px; font-weight: 700; text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-popup-body {
+    flex-grow: 1; color: white;
+    padding: 20px; font-size: 14px; text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    line-height: 1.5;
+}
+
+.glass-popup-footer {
+    display: flex; justify-content: space-around; padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-button {
+    background: rgba(255, 255, 255, 0.1); color: white; 
+    padding: 10px 16px; font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    border-radius: 8px; cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.glass-button.confirm {
+    background: rgba(0, 141, 161, 0.7);
+    border-color: rgba(0, 141, 161, 1);
+}
+
+.glass-button.confirm:hover {
+    background: rgba(0, 141, 161, 0.9);
+}

@@ -69,7 +69,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!tabs.length) return;
             const tabId = tabs[0].id;
 
-            browser.tabs.executeScript(tabId, { file: "content.js" })
+            browser.scripting.executeScript({ target: { tabId: tabId }, files: ["content.js"] })
                 .catch((error) => console.error("❌ Error injecting content script:", error));
         });
     }

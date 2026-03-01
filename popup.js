@@ -38,23 +38,23 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Popup loaded successfully!");
 
-    // Check if buttons exist
-    if (!document.getElementById("unfollowFollowing") || !document.getElementById("unfollowFollowers")) {
+    const followingBtn = document.getElementById("unfollowFollowing");
+    const followersBtn = document.getElementById("unfollowFollowers");
+
+    if (!followingBtn || !followersBtn) {
         console.error("❌ Buttons not found! Ensure popup.html has correct IDs.");
         return;
     }
 
-    // Attach click events to buttons
-    document.getElementById("unfollowFollowing").addEventListener("click", () => {
+    followingBtn.addEventListener("click", () => {
         redirectToLinkedIn("following");
     });
 
-    document.getElementById("unfollowFollowers").addEventListener("click", () => {
+    followersBtn.addEventListener("click", () => {
         redirectToLinkedIn("followers");
     });
 
-    // Listen for messages from content.js
-    chrome.runtime.onMessage.addListener((message) => {
+    browser.runtime.onMessage.addListener((message) => {
         if (message.action === "completion") {
             handleCompletion(message.count, message.nextSection);
         }
@@ -63,26 +63,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to redirect to LinkedIn and inject the content script
 function redirectToLinkedIn(section) {
-  console.log(`🔄 Redirecting to ${section} page...`);
-  chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-    const tabId = tabs[0].id;
-    const targetUrl = section === "following"
-      ? "https://www.linkedin.com/mynetwork/network-manager/people-follow/following/"
-      : "https://www.linkedin.com/mynetwork/network-manager/people-follow/followers/";
+    console.log(`🔄 Redirecting to ${section} page...`);
+    browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        const tabId = tabs[0].id;
+        const targetUrl = section === "following"
+            ? "https://www.linkedin.com/mynetwork/network-manager/people-follow/following/"
+            : "https://www.linkedin.com/mynetwork/network-manager/people-follow/followers/";
 
-    chrome.tabs.update(tabId, { url: targetUrl });
+        browser.tabs.update(tabId, { url: targetUrl });
 
-    chrome.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
-      if (updatedTabId === tabId && changeInfo.status === "complete") {
-        console.log(`✅ ${section} Page Loaded! Injecting Script...`);
-        chrome.scripting.executeScript({
-          target: { tabId: tabId },
-          files: ["content.js"]
-        }).catch((error) => console.error("❌ Error injecting script:", error));
-        chrome.tabs.onUpdated.removeListener(listener);
-      }
-    });
-  }).catch((error) => console.error("❌ Error querying tabs:", error));
+        browser.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
+            if (updatedTabId === tabId && changeInfo.status === "complete") {
+                console.log(`✅ ${section} Page Loaded! Injecting Script...`);
+                browser.scripting.executeScript({
+                    target: { tabId: tabId },
+                    files: ["content.js"]
+                }).catch((error) => console.error("❌ Error injecting script:", error));
+                browser.tabs.onUpdated.removeListener(listener);
+            }
+        });
+    }).catch((error) => console.error("❌ Error querying tabs:", error));
 }
 
 
@@ -92,8 +92,7 @@ function handleCompletion(count, nextSection) {
 
     displayPopup(
         "LinkedIn Mass Unfollower",
-        `Congratulations! You have unfollowed ${count} users in the "${nextSectionName}" section.<br><br>
-        Would you like to continue with the "${nextSectionName}" section?`,
+        `Congratulations! You have unfollowed ${count} users in the previous section. Would you like to continue with the "${nextSectionName}" section?`,
         "Continue with Next Section",
         "Finish",
         () => {
@@ -105,66 +104,47 @@ function handleCompletion(count, nextSection) {
                 "Process completed successfully!",
                 "Close",
                 "",
-                () => {}
+                () => { }
             );
         }
     );
 }
 
-// Function to dynamically create and display popups
+// Function to dynamically create and display popups (CSS glassmorphism based)
 function displayPopup(title, message, confirmLabel, cancelLabel, onConfirm, onCancel) {
     const overlay = document.createElement("div");
-    overlay.style = `
-        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: rgba(0, 0, 0, 0.7); z-index: 9999;
-        display: flex; justify-content: center; align-items: center;`;
+    overlay.className = "glass-overlay";
 
     const popupBox = document.createElement("div");
-    popupBox.style = `
-        width: 400px; height: auto; background: white; border-radius: 10px;
-        overflow: hidden; display: flex; flex-direction: column;
-        box-shadow: 0px 5px 15px rgba(0,0,0,0.3);`;
+    popupBox.className = "glass-popup-box";
 
     const popupHeader = document.createElement("div");
-    popupHeader.style = `
-        background: #008da1; color: white; padding: 15px;
-        font-size: 18px; font-weight: bold; text-align: center;`;
-    popupHeader.innerText = title;
+    popupHeader.className = "glass-popup-header";
+    popupHeader.textContent = title;
 
     const popupBody = document.createElement("div");
-    popupBody.style = `
-        flex-grow: 1; background: #e0e0e0; color: black;
-        padding: 20px; font-size: 16px; text-align: center;`;
-    popupBody.innerHTML = message;
+    popupBody.className = "glass-popup-body";
+    popupBody.textContent = message;
 
     const popupFooter = document.createElement("div");
-    popupFooter.style = "display: flex; justify-content: space-around; padding: 15px; background: white;";
+    popupFooter.className = "glass-popup-footer";
 
     const confirmBtn = document.createElement("button");
-    confirmBtn.innerText = confirmLabel;
-    confirmBtn.style = `
-        background: #008da1; color: white; padding: 10px 20px;
-        border: 2px solid white; border-radius: 5px; cursor: pointer;`;
-    confirmBtn.onmouseover = () => (confirmBtn.style.background = "#b1dd0c");
-    confirmBtn.onmouseleave = () => (confirmBtn.style.background = "#008da1");
+    confirmBtn.textContent = confirmLabel;
+    confirmBtn.className = "glass-button confirm";
     confirmBtn.onclick = () => {
         document.body.removeChild(overlay);
         onConfirm();
     };
 
-    const cancelBtn = document.createElement("button");
-    cancelBtn.innerText = cancelLabel;
-    cancelBtn.style = `
-        background: #008da1; color: white; padding: 10px 20px;
-        border: 2px solid white; border-radius: 5px; cursor: pointer;`;
-    cancelBtn.onmouseover = () => (cancelBtn.style.background = "#b1dd0c");
-    cancelBtn.onmouseleave = () => (cancelBtn.style.background = "#008da1");
-    cancelBtn.onclick = () => {
-        document.body.removeChild(overlay);
-        onCancel();
-    };
-
     if (cancelLabel !== "") {
+        const cancelBtn = document.createElement("button");
+        cancelBtn.textContent = cancelLabel;
+        cancelBtn.className = "glass-button";
+        cancelBtn.onclick = () => {
+            document.body.removeChild(overlay);
+            onCancel();
+        };
         popupFooter.appendChild(cancelBtn);
     }
     popupFooter.appendChild(confirmBtn);

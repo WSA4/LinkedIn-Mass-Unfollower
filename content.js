@@ -59,23 +59,47 @@ function initiateUnfollow(section) {
                     unfollowedCount++;
                 }
             }
-            setTimeout(processUnfollow, 1500);
-        }, 1500);
+            const randomDelay2 = Math.floor(Math.random() * (3500 - 2000 + 1) + 2000);
+            setTimeout(processUnfollow, randomDelay2);
+        }, Math.floor(Math.random() * (2000 - 1000 + 1) + 1000));
     }
+
+    let scrollRetries = 0;
+    const MAX_RETRIES = 5;
 
     function scrollDownAndRetry() {
         let initialHeight = document.body.scrollHeight;
+
+        // The "Scroll Jiggle" to trigger IntersectionObservers on modern SPAs
         window.scrollTo(0, document.body.scrollHeight);
+        setTimeout(() => {
+            window.scrollBy(0, -500); // Scroll up slightly
+            setTimeout(() => {
+                window.scrollTo(0, document.body.scrollHeight); // Scroll back down
+            }, 500);
+        }, 500);
 
         setTimeout(() => {
             const newFollowButtons = document.querySelectorAll("button[aria-label*='Click to stop following']");
             if (newFollowButtons.length > 0) {
+                // Found new targets! Reset retries and continue.
+                scrollRetries = 0;
                 initiateUnfollow(currentSection);
             } else {
                 if (document.body.scrollHeight > initialHeight) {
-                    setTimeout(scrollDownAndRetry, 5000); // Retry after a longer delay
+                    // Height increased, content might still be rendering. Wait and retry.
+                    scrollRetries = 0;
+                    setTimeout(scrollDownAndRetry, 5000);
                 } else {
-                    displayCompletionPopup();
+                    // Reached the apparent "bottom". Bump retry counter.
+                    scrollRetries++;
+                    if (scrollRetries < MAX_RETRIES) {
+                        console.log(`[Mass Unfollower] End of page reached. Waiting for lazy load... (Attempt ${scrollRetries}/${MAX_RETRIES})`);
+                        setTimeout(scrollDownAndRetry, 3500);
+                    } else {
+                        console.log("[Mass Unfollower] Giving up. No more users detected.");
+                        displayCompletionPopup();
+                    }
                 }
             }
         }, 5000);
@@ -85,7 +109,7 @@ function initiateUnfollow(section) {
         const nextSection = currentSection === "following" ? "followers" : "following";
 
         // 🔄 Update to Manifest V3 background messaging
-        chrome.runtime.sendMessage({
+        browser.runtime.sendMessage({
             action: "completion",
             count: unfollowedCount,
             nextSection: nextSection
