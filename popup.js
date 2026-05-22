@@ -1,4 +1,7 @@
-/**
+// Edge/Chromium compatibility polyfill (allows using `browser.*` namespace on Chrome/Edge)
+if (typeof browser === "undefined") { var browser = chrome; }
+    
+    /**
  * LinkedIn Mass Unfollower Extension (2025)
  * Developed by: Llewellyn E. van Zyl
  * Website: www.psynalytics.com
