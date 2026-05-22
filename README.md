@@ -46,6 +46,15 @@ It is your sole responsibility to ensure your use complies with platform guideli
 
 *(Note: Unless signed by Mozilla AMO, temporary extensions are removed when Firefox restarts).*
 
+### 🌐 **Install on Microsoft Edge / Chromium (Developer Mode)**
+This extension is now Chromium-compatible (tested in Microsoft Edge).
+- **Download** the source (clone the repo or download as ZIP and extract it).
+- Open Edge and navigate to `edge://extensions/` (or `chrome://extensions/` on Chrome).
+- Toggle **Developer mode** on (top-right corner).
+- Click **Load unpacked** and select the extracted extension folder (the one containing `manifest.json`).
+- The extension icon should appear in your toolbar.
+       
+- *(Note: Unpacked extensions are unsigned and intended for testing. For a permanent install, the extension must be published to the Microsoft Edge Add-ons store.)*
 ---
 
 ## 🚀 **How to Use**  
