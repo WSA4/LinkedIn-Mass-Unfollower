@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "LinkedIn Mass Unfollower",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Automatically unfollow all your LinkedIn connections.",
     "browser_specific_settings": {
           "gecko": {
