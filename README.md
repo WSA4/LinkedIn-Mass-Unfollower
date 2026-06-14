@@ -62,7 +62,9 @@ This extension is now Chromium-compatible (tested in Microsoft Edge).
 2️⃣ Choose your target:  
    - **Start Unfollowing (Following)** → Unfollows people you chose to follow.
    - **Unfollow Followers** → Unfollows people LinkedIn officially added to your feed.  
+
 3️⃣ Leave the LinkedIn tab open. The extension will securely unfollow users one by one, scroll down to load more, and alert you when complete.
+
 4️⃣ It deliberately leaves a small handful of users (approx. 9) untouched at the end to avoid tripping extreme bot flags.
 
 ---
