@@ -35,17 +35,6 @@ It is your sole responsibility to ensure your use complies with platform guideli
 
 ---
 
-## 🛠 **How to Install**  
-
-### 🔹 **Install on Firefox (Temporary/Developer Mode)**  
-1. **Download the ZIP file** (`linkedin_mass_unfollower-1.0.zip`) from [GitHub Releases](https://github.com/llewellynvz/LinkedIn-Mass-Unfollower/releases).  
-2. **Open Firefox**.  
-3. Type **`about:debugging#/runtime/this-firefox`** in the address bar.
-4. Click **"Load Temporary Add-on"** and select the `.zip` file (or the extracted `manifest.json`).  
-5. The extension should now be active in your toolbar.  
-
-*(Note: Unless signed by Mozilla AMO, temporary extensions are removed when Firefox restarts).*
-
 ### 🌐 **Install on Microsoft Edge / Chromium (Developer Mode)**
 This extension is now Chromium-compatible (tested in Microsoft Edge).
 - **Download** the source (clone the repo or download as ZIP and extract it).
